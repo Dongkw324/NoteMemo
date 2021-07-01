@@ -38,7 +38,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addMemo.setOnClickListener {
-            var addFragment = Fragment()
+            var addFragment = AddFragment()
             var transaction : FragmentTransaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.frame_layout, addFragment).addToBackStack(addFragment.javaClass.simpleName)
             transaction.commit()
