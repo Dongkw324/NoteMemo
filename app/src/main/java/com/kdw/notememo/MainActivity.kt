@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var mainFragment = MainFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, mainFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.frame_layout, mainFragment).commit()
     }
 }
