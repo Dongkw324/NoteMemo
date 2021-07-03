@@ -60,6 +60,12 @@
         android:hint="@string/input_memo"
         android:gravity="top"
         android:inputType="textMultiLine|textNoSuggestions" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        app:layout_constraintBottom_toTopOf="@id/memo_navigation"
+        android:background="@color/black" />
 
     <LinearLayout
         android:id="@+id/memo_navigation"
@@ -68,6 +74,26 @@
         android:orientation="horizontal"
         android:background="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/format_color"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:clickable="true"
+            android:layout_marginStart="25dp"
+            android:focusable="true" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/add_photo"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:clickable="true"
+            android:focusable="true" />
 
 
     </LinearLayout>
