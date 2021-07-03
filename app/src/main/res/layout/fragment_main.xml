@@ -28,12 +28,24 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_fragment"
         android:background="@color/black" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4px"
+        app:layout_constraintBottom_toTopOf="@id/input_search"
+        android:background="@color/black" />
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/input_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/toolbar_fragment"
         android:layout_marginTop="20dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4px"
+        app:layout_constraintTop_toBottomOf="@id/input_search"
+        android:background="@color/black" />
 
 
     <androidx.recyclerview.widget.RecyclerView
