@@ -43,10 +43,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             transaction.replace(R.id.frame_layout, addFragment).addToBackStack(addFragment.javaClass.simpleName)
             transaction.commit()
         }
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+
 }

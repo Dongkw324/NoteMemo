@@ -25,10 +25,7 @@ class AddFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.backButton.setOnClickListener {
-            var mainFragment = MainFragment()
-            var transaction : FragmentTransaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout, mainFragment).addToBackStack(mainFragment.javaClass.simpleName)
-            transaction.commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
@@ -47,4 +44,6 @@ class AddFragment: Fragment() {
     }
 
      */
+
+
 }

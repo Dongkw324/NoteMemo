@@ -14,5 +14,7 @@ class MainActivity : AppCompatActivity() {
         var mainFragment = MainFragment()
         supportFragmentManager.beginTransaction().add(R.id.frame_layout, mainFragment).commit()
 
+
+
     }
 }
