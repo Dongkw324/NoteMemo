@@ -38,10 +38,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addMemo.setOnClickListener {
-            var addFragment = AddFragment()
-            var transaction : FragmentTransaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout, addFragment).addToBackStack(addFragment.javaClass.simpleName)
-            transaction.commit()
+            replaceFragment(AddFragment.newInstance())
         }
 
 
@@ -52,5 +49,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = null
     }
 
+    private fun replaceFragment(fragment : Fragment){
+        val fragmentTransition = requireActivity().supportFragmentManager.beginTransaction()
 
+        fragmentTransition.replace(R.id.frame_layout, fragment).addToBackStack(fragment.javaClass.simpleName)
+                .commit()
+    }
 }

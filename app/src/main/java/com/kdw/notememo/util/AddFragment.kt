@@ -33,7 +33,7 @@ class AddFragment: Fragment() {
         super.onDestroy()
         _binding = null
     }
-    /*
+
     companion object{
         @JvmStatic
         fun newInstance() =
@@ -43,7 +43,6 @@ class AddFragment: Fragment() {
                 }
     }
 
-     */
 
 
 }
