@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.kdw.notememo.MainActivity
 import com.kdw.notememo.R
 import com.kdw.notememo.databinding.FragmentMainBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -41,6 +43,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             replaceFragment(AddFragment.newInstance())
         }
 
+        //val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", java.util.Locale.getDefault())
+        //val currentDate = sdf.format(Date())
 
     }
 
