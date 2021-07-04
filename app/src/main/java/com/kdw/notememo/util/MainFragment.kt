@@ -24,7 +24,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         return binding.root
     }
 
-    /*
+
     companion object{
         @JvmStatic
         fun newInstance() =
@@ -33,7 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     }
                 }
     }
-*/
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
