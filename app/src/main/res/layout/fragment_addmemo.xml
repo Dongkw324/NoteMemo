@@ -21,6 +21,7 @@
             android:focusable="true" />
 
         <ImageView
+            android:id="@+id/save_memo"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/note_add"
@@ -86,6 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
+            android:id="@+id/color_letter"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/format_color"
@@ -96,6 +98,7 @@
             android:focusable="true" />
 
         <ImageView
+            android:id="@+id/image_insert"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/add_photo"
