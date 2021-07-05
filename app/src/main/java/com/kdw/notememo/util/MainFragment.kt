@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.kdw.notememo.MainActivity
 import com.kdw.notememo.R
+import com.kdw.notememo.adapter.MemoAdapter
 import com.kdw.notememo.databinding.FragmentMainBinding
+import com.kdw.notememo.model.MemoDatabase
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,8 +47,15 @@ class MainFragment : BaseFragment() {
             replaceFragment(AddFragment.newInstance())
         }
 
-        //val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", java.util.Locale.getDefault())
-        //val currentDate = sdf.format(Date())
+        binding.memoRecycler.setHasFixedSize(true)
+        binding.memoRecycler.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        launch {
+            context?.let {
+                var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
+                binding.memoRecycler.adapter = MemoAdapter(memos)
+            }
+        }
 
     }
 

@@ -59,7 +59,7 @@ class AddFragment: BaseFragment() {
         }
 
 
-        /*
+
         launch {
             val memo = Memo()
             memo.title = binding.inputTitle.text.toString()
@@ -71,11 +71,6 @@ class AddFragment: BaseFragment() {
                         .insertMemo(memo)
             }
         }
-
-
-
-         */
-
 
     }
 
