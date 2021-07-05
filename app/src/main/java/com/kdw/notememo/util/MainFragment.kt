@@ -12,7 +12,7 @@ import com.kdw.notememo.databinding.FragmentMainBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment() {
 
     private var _binding : FragmentMainBinding? = null
     private val binding get() = _binding!!

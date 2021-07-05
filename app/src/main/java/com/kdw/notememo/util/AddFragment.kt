@@ -5,19 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kdw.notememo.databinding.FragmentAddmemoBinding
+import com.kdw.notememo.model.Memo
+import com.kdw.notememo.model.MemoDatabase
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddFragment: Fragment() {
+class AddFragment: BaseFragment() {
 
     private var _binding : FragmentAddmemoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var thread: Thread
     private lateinit var state : String
+
+    val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.getDefault())
+    var currentDate: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentAddmemoBinding.inflate(inflater, container, false)
@@ -28,14 +35,49 @@ class AddFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        state = "Active"
+        updateTime()
+
         binding.backButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        state = "Active"
-        updateTime()
+        binding.saveMemo.setOnClickListener {
+            saveMemo()
+        }
     }
 
+    private fun saveMemo(){
+        currentDate = sdf.format(Date())
+
+        if(binding.inputTitle.text.isNullOrEmpty()){
+            Toast.makeText(context, "Write the memo title", Toast.LENGTH_SHORT).show()
+        }
+
+        if(binding.inputMemo.text.isNullOrEmpty()){
+            Toast.makeText(context, "Write the memo content", Toast.LENGTH_SHORT).show()
+        }
+
+
+        /*
+        launch {
+            val memo = Memo()
+            memo.title = binding.inputTitle.text.toString()
+            memo.content = binding.inputMemo.text.toString()
+            memo.memoTime = currentDate
+
+            context?.let {
+                MemoDatabase.getInstance(it).memoDao()
+                        .insertMemo(memo)
+            }
+        }
+
+
+
+         */
+
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -68,8 +110,7 @@ class AddFragment: Fragment() {
 
             fun update() {
                 requireActivity().runOnUiThread {
-                    val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.getDefault())
-                    val currentDate = sdf.format(Date())
+                    currentDate = sdf.format(Date())
                     binding.memoTime.text = currentDate
                 }
             }

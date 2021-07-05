@@ -8,9 +8,9 @@ interface MemoDao {
     val displayMemo : List<Memo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMemo(memo : Memo)
+    suspend fun insertMemo(memo : Memo)
 
     @Delete
-    fun deleteMemo(memo : Memo)
+    suspend fun deleteMemo(memo : Memo)
 
 }
