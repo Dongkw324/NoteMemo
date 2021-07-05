@@ -75,7 +75,7 @@ class AddFragment: Fragment() {
             }
         })
 
-        thread?.start()
+        thread.start()
     }
 
     override fun onStop() {
