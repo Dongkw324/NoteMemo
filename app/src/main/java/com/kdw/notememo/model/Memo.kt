@@ -16,7 +16,7 @@ data class Memo(
     @ColumnInfo(name="content")
     var content : String? = null,
 
-    @ColumnInfo
+    @ColumnInfo(name="memoTime")
     var memoTime : String? = null,
 
     @ColumnInfo(name="img_path")
@@ -26,7 +26,10 @@ data class Memo(
     var color : String? = null
 
 ){
+
     override fun toString(): String {
         return "$title : $memoTime"
     }
+
+
 }

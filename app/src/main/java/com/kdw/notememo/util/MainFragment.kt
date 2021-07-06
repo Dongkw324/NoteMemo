@@ -61,8 +61,11 @@ class MainFragment : BaseFragment(), DeleteMemo {
 
     override fun onDestroy() {
         super.onDestroy()
+        binding.memoRecycler.adapter = null
         _binding = null
+
     }
+
 
     private fun replaceFragment(fragment : Fragment){
         val fragmentTransition = requireActivity().supportFragmentManager.beginTransaction()
