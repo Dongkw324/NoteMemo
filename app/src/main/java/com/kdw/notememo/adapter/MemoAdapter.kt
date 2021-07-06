@@ -8,7 +8,7 @@ import com.kdw.notememo.model.Memo
 import com.kdw.notememo.util.DeleteMemo
 
 class MemoAdapter(private val arrayList: List<Memo>,
-val delete: DeleteMemo) :
+                  private val delete: DeleteMemo) :
     RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
 
 
