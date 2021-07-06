@@ -52,13 +52,13 @@ class AddFragment: BaseFragment() {
 
         if(binding.inputTitle.text.isNullOrEmpty()){
             Toast.makeText(context, "Write the memo title", Toast.LENGTH_SHORT).show()
+            return
         }
 
         if(binding.inputMemo.text.isNullOrEmpty()){
             Toast.makeText(context, "Write the memo content", Toast.LENGTH_SHORT).show()
+            return
         }
-
-
 
         launch {
             val memo = Memo()
@@ -69,8 +69,11 @@ class AddFragment: BaseFragment() {
             context?.let {
                 MemoDatabase.getInstance(it).memoDao()
                         .insertMemo(memo)
+
+                requireActivity().supportFragmentManager.popBackStack()
             }
         }
+
 
     }
 

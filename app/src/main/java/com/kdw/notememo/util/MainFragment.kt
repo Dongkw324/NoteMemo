@@ -5,18 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.kdw.notememo.MainActivity
 import com.kdw.notememo.R
 import com.kdw.notememo.adapter.MemoAdapter
 import com.kdw.notememo.databinding.FragmentMainBinding
+import com.kdw.notememo.model.Memo
 import com.kdw.notememo.model.MemoDatabase
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment(), DeleteMemo {
 
     private var _binding : FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -50,10 +48,12 @@ class MainFragment : BaseFragment() {
         binding.memoRecycler.setHasFixedSize(true)
         binding.memoRecycler.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
+
         launch {
             context?.let {
                 var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
-                binding.memoRecycler.adapter = MemoAdapter(memos)
+                binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment)
+
             }
         }
 
@@ -69,5 +69,15 @@ class MainFragment : BaseFragment() {
 
         fragmentTransition.replace(R.id.frame_layout, fragment).addToBackStack(fragment.javaClass.simpleName)
                 .commit()
+    }
+
+    override fun deleteMemo(memo: Memo){
+        launch {
+            context?.let{
+                MemoDatabase.getInstance(it).memoDao().deleteMemo(memo)
+                var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
+                binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment)
+            }
+        }
     }
 }

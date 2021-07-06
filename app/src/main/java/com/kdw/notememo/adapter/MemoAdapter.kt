@@ -1,15 +1,16 @@
 package com.kdw.notememo.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kdw.notememo.R
 import com.kdw.notememo.databinding.ItemMemoBinding
 import com.kdw.notememo.model.Memo
+import com.kdw.notememo.util.DeleteMemo
 
-class MemoAdapter(val arrayList: List<Memo>) :
+class MemoAdapter(private val arrayList: List<Memo>,
+val delete: DeleteMemo) :
     RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
+
 
     class MemoViewHolder(val binding : ItemMemoBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -22,11 +23,13 @@ class MemoAdapter(val arrayList: List<Memo>) :
         holder.binding.noteContent.text = arrayList[position].content
         holder.binding.noteContent.text = arrayList[position].memoTime
 
+        holder.binding.root.setOnClickListener {
+            delete.deleteMemo(arrayList[position])
+        }
     }
 
     override fun getItemCount(): Int {
         return arrayList.size
     }
-
 
 }
