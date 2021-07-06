@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
+        app:cardElevation="10dp"
         android:layout_margin="5dp"
         app:cardBackgroundColor="@color/black">
 
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:padding="5dp"
                 android:layout_marginLeft="10dp"/>
 
@@ -35,7 +35,8 @@
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp" />
 
             <TextView
                 android:id="@+id/note_dateTime"
@@ -44,7 +45,8 @@
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp" />
 
 
 

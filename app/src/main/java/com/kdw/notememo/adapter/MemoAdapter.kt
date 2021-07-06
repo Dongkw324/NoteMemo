@@ -21,10 +21,11 @@ val delete: DeleteMemo) :
     override fun onBindViewHolder(holder: MemoViewHolder, position: Int) {
         holder.binding.noteTitle.text = arrayList[position].title
         holder.binding.noteContent.text = arrayList[position].content
-        holder.binding.noteContent.text = arrayList[position].memoTime
+        holder.binding.noteDateTime.text = arrayList[position].memoTime
 
-        holder.binding.root.setOnClickListener {
+        holder.binding.root.setOnLongClickListener {
             delete.deleteMemo(arrayList[position])
+            true
         }
     }
 
