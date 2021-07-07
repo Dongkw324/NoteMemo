@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kdw.notememo.databinding.ItemMemoBinding
 import com.kdw.notememo.model.Memo
-import com.kdw.notememo.util.DeleteMemo
+import com.kdw.notememo.util.function.DeleteMemo
 
 class MemoAdapter(private val arrayList: List<Memo>,
                   private val delete: DeleteMemo) :

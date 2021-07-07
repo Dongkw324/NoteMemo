@@ -11,6 +11,7 @@ import com.kdw.notememo.adapter.MemoAdapter
 import com.kdw.notememo.databinding.FragmentMainBinding
 import com.kdw.notememo.model.Memo
 import com.kdw.notememo.model.MemoDatabase
+import com.kdw.notememo.util.function.DeleteMemo
 import kotlinx.coroutines.launch
 import java.util.*
 

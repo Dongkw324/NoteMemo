@@ -46,6 +46,12 @@ class AddFragment: BaseFragment() {
         binding.saveMemo.setOnClickListener {
             saveMemo()
         }
+
+        binding.colorLetter.setOnClickListener {
+            val bottomFragment = BottomFragment.newInstance()
+            bottomFragment.show(requireActivity().supportFragmentManager, "bottom sheet dialog")
+        }
+
     }
 
     private fun saveMemo(){
