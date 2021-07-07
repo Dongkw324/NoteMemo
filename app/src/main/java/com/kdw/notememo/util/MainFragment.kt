@@ -41,20 +41,21 @@ class MainFragment : BaseFragment(), DeleteMemo {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.addMemo.setOnClickListener {
-            replaceFragment(AddFragment.newInstance())
-        }
-
         binding.memoRecycler.setHasFixedSize(true)
         binding.memoRecycler.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
+        val db = MemoDatabase.getInstance(requireContext())
 
         launch {
             context?.let {
-                var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
+                var memos = db.memoDao().displayMemo()
                 binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment)
 
             }
+        }
+
+        binding.addMemo.setOnClickListener {
+            replaceFragment(AddFragment.newInstance())
         }
 
     }
@@ -80,6 +81,7 @@ class MainFragment : BaseFragment(), DeleteMemo {
                 MemoDatabase.getInstance(it).memoDao().deleteMemo(memo)
                 var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
                 binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment)
+
             }
         }
     }
