@@ -50,6 +50,7 @@ class AddFragment: BaseFragment() {
         binding.colorLetter.setOnClickListener {
             val bottomFragment = BottomFragment.newInstance()
             bottomFragment.show(requireActivity().supportFragmentManager, "bottom sheet dialog")
+
         }
 
     }
