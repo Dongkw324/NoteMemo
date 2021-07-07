@@ -1,5 +1,6 @@
 package com.kdw.notememo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,4 +23,5 @@ class MainActivity : AppCompatActivity() {
         fragmentTransition.replace(R.id.frame_layout, fragment).addToBackStack(fragment.javaClass.simpleName)
                 .commit()
     }
+
 }

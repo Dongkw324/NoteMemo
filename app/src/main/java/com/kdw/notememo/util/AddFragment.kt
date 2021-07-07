@@ -11,18 +11,21 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.kdw.notememo.databinding.FragmentAddmemoBinding
 import com.kdw.notememo.model.Memo
 import com.kdw.notememo.model.MemoDatabase
+import com.kdw.notememo.util.function.ItemClick
+import com.kdw.notememo.util.function.ItemClickListener
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddFragment: BaseFragment() {
+class AddFragment: BaseFragment(), ItemClickListener {
 
     private var _binding : FragmentAddmemoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var thread: Thread
     private lateinit var state : String
+    private lateinit var bottomFragment: BottomFragment
 
     val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.getDefault())
     var currentDate: String? = null
@@ -48,7 +51,7 @@ class AddFragment: BaseFragment() {
         }
 
         binding.colorLetter.setOnClickListener {
-            val bottomFragment = BottomFragment.newInstance()
+            bottomFragment = ItemClick.newInstance(this)
             bottomFragment.show(requireActivity().supportFragmentManager, "bottom sheet dialog")
 
         }
@@ -135,4 +138,13 @@ class AddFragment: BaseFragment() {
         super.onResume()
         state="Active"
     }
+
+
+    override fun onGreenColorClick() {
+        Toast.makeText(requireContext(), "Green", Toast.LENGTH_SHORT).show()
+
+        bottomFragment.dismiss()
+    }
+
+
 }
