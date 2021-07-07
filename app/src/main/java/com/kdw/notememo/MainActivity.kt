@@ -1,6 +1,7 @@
 package com.kdw.notememo
 
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(MainFragment.newInstance())
     }
 
+    
     private fun replaceFragment(fragment : Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
 
