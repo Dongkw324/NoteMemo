@@ -11,4 +11,7 @@
     <color name="yellow">#FFE500</color>
     <color name="green">#00FF0A</color>
     <color name="red">#FF0000</color>
+    <color name="purple">#7832F4</color>
+    <color name="pink">#DD5CF3</color>
+    <color name="orange">#FF9800</color>
 </resources>
