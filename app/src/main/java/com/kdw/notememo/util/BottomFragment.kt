@@ -1,6 +1,5 @@
 package com.kdw.notememo.util
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +41,22 @@ class BottomFragment(private var itemClickListener: ItemClickListener) : BottomS
         binding.colorYellow.setOnClickListener {
             itemClickListener.onYellowColorClick()
         }
+
+        binding.colorOrange.setOnClickListener {
+            itemClickListener.onOrangeColorClick()
+        }
+
+        binding.colorPink.setOnClickListener {
+            itemClickListener.onPinkColorClick()
+        }
+
+        binding.colorPurple.setOnClickListener {
+            itemClickListener.onPurpleColorClick()
+        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

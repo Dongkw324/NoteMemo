@@ -2,7 +2,6 @@ package com.kdw.notememo.util
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -166,6 +165,27 @@ class AddFragment: BaseFragment(), ItemClickListener {
     override fun onYellowColorClick() {
         Toast.makeText(requireContext(), "Yellow", Toast.LENGTH_SHORT).show()
         selectedColor = "#FFE500"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
+        bottomFragment.dismiss()
+    }
+
+    override fun onOrangeColorClick() {
+        Toast.makeText(requireContext(), "Orange", Toast.LENGTH_SHORT).show()
+        selectedColor = "#FF9800"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
+        bottomFragment.dismiss()
+    }
+
+    override fun onPinkColorClick() {
+        Toast.makeText(requireContext(), "Pink", Toast.LENGTH_SHORT).show()
+        selectedColor = "#DD5CF3"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
+        bottomFragment.dismiss()
+    }
+
+    override fun onPurpleColorClick() {
+        Toast.makeText(requireContext(), "Purple", Toast.LENGTH_SHORT).show()
+        selectedColor = "#7832F4"
         binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
         bottomFragment.dismiss()
     }

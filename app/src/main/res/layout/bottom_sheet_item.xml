@@ -45,5 +45,35 @@
         android:layout_gravity="center"
         android:focusable="true" />
 
+    <ImageView
+        android:id="@+id/color_orange"
+        android:clickable="true"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/color_item_5"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:focusable="true" />
+
+    <ImageView
+        android:id="@+id/color_pink"
+        android:clickable="true"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/color_item_6"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:focusable="true" />
+
+    <ImageView
+        android:id="@+id/color_purple"
+        android:clickable="true"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/color_item_7"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:focusable="true" />
+
 
 </LinearLayout>
