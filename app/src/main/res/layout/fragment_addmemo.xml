@@ -91,7 +91,7 @@
             android:id="@+id/color_letter"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/format_color"
+            android:background="@drawable/color_lens"
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:clickable="true"

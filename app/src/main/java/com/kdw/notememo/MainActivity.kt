@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(MainFragment.newInstance())
     }
 
-    
+
     private fun replaceFragment(fragment : Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
 
