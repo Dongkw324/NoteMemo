@@ -1,5 +1,6 @@
 package com.kdw.notememo.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,10 @@ class MemoAdapter(private val arrayList: List<Memo>,
         holder.binding.noteTitle.text = arrayList[position].title
         holder.binding.noteContent.text = arrayList[position].content
         holder.binding.noteDateTime.text = arrayList[position].memoTime
+
+        if(arrayList[position].color != null){
+            holder.binding.cardView.setCardBackgroundColor(Color.parseColor(arrayList[position].color))
+        } 
 
         holder.binding.root.setOnLongClickListener {
             delete.deleteMemo(arrayList[position])

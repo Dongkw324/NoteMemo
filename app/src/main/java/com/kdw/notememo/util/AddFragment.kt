@@ -1,5 +1,6 @@
 package com.kdw.notememo.util
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -27,6 +28,8 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
     val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.getDefault())
     var currentDate: String? = null
+
+    var selectedColor = "#000000"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentAddmemoBinding.inflate(inflater, container, false)
@@ -74,6 +77,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
             memo.title = binding.inputTitle.text.toString()
             memo.content = binding.inputMemo.text.toString()
             memo.memoTime = currentDate
+            memo.color = selectedColor
 
             context?.let {
                 MemoDatabase.getInstance(it).memoDao()
@@ -140,7 +144,8 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
     override fun onGreenColorClick() {
         Toast.makeText(requireContext(), "Green", Toast.LENGTH_SHORT).show()
-
+        selectedColor = "#00FF0A"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
         bottomFragment.dismiss()
     }
 
