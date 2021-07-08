@@ -26,7 +26,7 @@ class MemoAdapter(private val arrayList: List<Memo>,
 
         if(arrayList[position].color != null){
             holder.binding.cardView.setCardBackgroundColor(Color.parseColor(arrayList[position].color))
-        } 
+        }
 
         holder.binding.root.setOnLongClickListener {
             delete.deleteMemo(arrayList[position])

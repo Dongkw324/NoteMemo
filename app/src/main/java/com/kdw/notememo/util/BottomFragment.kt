@@ -30,6 +30,18 @@ class BottomFragment(private var itemClickListener: ItemClickListener) : BottomS
         binding.colorGreen.setOnClickListener {
             itemClickListener.onGreenColorClick()
         }
+
+        binding.colorBlue.setOnClickListener {
+            itemClickListener.onBlueColorClick()
+        }
+
+        binding.colorRed.setOnClickListener {
+            itemClickListener.onRedColorClick()
+        }
+
+        binding.colorYellow.setOnClickListener {
+            itemClickListener.onYellowColorClick()
+        }
     }
 
 }

@@ -149,5 +149,26 @@ class AddFragment: BaseFragment(), ItemClickListener {
         bottomFragment.dismiss()
     }
 
+    override fun onBlueColorClick() {
+        Toast.makeText(requireContext(), "Blue", Toast.LENGTH_SHORT).show()
+        selectedColor = "#0027FD"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
+        bottomFragment.dismiss()
+    }
+
+    override fun onRedColorClick() {
+        Toast.makeText(requireContext(), "Red", Toast.LENGTH_SHORT).show()
+        selectedColor = "#FF0000"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
+        bottomFragment.dismiss()
+    }
+
+    override fun onYellowColorClick() {
+        Toast.makeText(requireContext(), "Yellow", Toast.LENGTH_SHORT).show()
+        selectedColor = "#FFE500"
+        binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
+        bottomFragment.dismiss()
+    }
+
 
 }
