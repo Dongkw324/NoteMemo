@@ -1,11 +1,19 @@
 package com.kdw.notememo.util
 
+
+import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.kdw.notememo.databinding.FragmentAddmemoBinding
 import com.kdw.notememo.model.Memo
 import com.kdw.notememo.model.MemoDatabase
@@ -14,7 +22,6 @@ import com.kdw.notememo.util.function.ItemClickListener
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class AddFragment: BaseFragment(), ItemClickListener {
 
@@ -29,6 +36,29 @@ class AddFragment: BaseFragment(), ItemClickListener {
     var currentDate: String? = null
 
     var selectedColor = "#000000"
+
+    private val resultLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()){
+            isGranted ->
+            if(isGranted){
+                Log.i("DEBUG", "permission granted")
+            } else {
+                Log.i("DEBUG", "permission denied")
+                Snackbar.make(binding.root, "permission required", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+    private val getContent = registerForActivityResult(
+        ActivityResultContracts.GetContent()){
+        uri ->
+        if(uri != null){
+            binding.noteImage.setImageURI(uri)
+            binding.noteImage.visibility = View.VISIBLE
+        } else {
+            Toast.makeText(requireContext(), "not image", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentAddmemoBinding.inflate(inflater, container, false)
@@ -56,6 +86,18 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
         }
 
+        binding.imageInsert.setOnClickListener {
+            if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_GRANTED){
+                startContent()
+            } else {
+                Toast.makeText(requireContext(), "not permission", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun startContent(){
+        getContent.launch("image/*")
     }
 
     private fun saveMemo(){
@@ -189,6 +231,5 @@ class AddFragment: BaseFragment(), ItemClickListener {
         binding.noteColor.setBackgroundColor(Color.parseColor(selectedColor))
         bottomFragment.dismiss()
     }
-
 
 }
