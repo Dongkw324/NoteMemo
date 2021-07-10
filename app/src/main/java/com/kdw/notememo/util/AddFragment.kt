@@ -36,6 +36,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
     var currentDate: String? = null
 
     var selectedColor = "#000000"
+    var selectedImageUri = ""
 
     private val resultLauncher =
         registerForActivityResult(
@@ -55,6 +56,9 @@ class AddFragment: BaseFragment(), ItemClickListener {
         if(uri != null){
             binding.noteImage.setImageURI(uri)
             binding.noteImage.visibility = View.VISIBLE
+            selectedImageUri = uri.toString()
+            Log.i("DEBUG", uri.toString())
+            Log.i("DEBUG", selectedImageUri.toString())
         } else {
             Toast.makeText(requireContext(), "not image", Toast.LENGTH_SHORT).show()
         }
@@ -119,6 +123,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
             memo.content = binding.inputMemo.text.toString()
             memo.memoTime = currentDate
             memo.color = selectedColor
+            memo.imagePath = selectedImageUri
 
             context?.let {
                 MemoDatabase.getInstance(it).memoDao()

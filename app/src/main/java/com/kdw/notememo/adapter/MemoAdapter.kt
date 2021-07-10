@@ -1,7 +1,11 @@
 package com.kdw.notememo.adapter
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kdw.notememo.databinding.ItemMemoBinding
@@ -26,6 +30,12 @@ class MemoAdapter(private val arrayList: List<Memo>,
 
         if(arrayList[position].color != null){
             holder.binding.cardView.setCardBackgroundColor(Color.parseColor(arrayList[position].color))
+        }
+
+        if(arrayList[position].imagePath != null){
+            holder.binding.noteImageView.setImageURI(Uri.parse(arrayList[position].imagePath))
+            holder.binding.noteImageView.visibility = View.VISIBLE
+            Log.i("DEBUG", arrayList[position].imagePath.toString())
         }
 
         holder.binding.root.setOnLongClickListener {
