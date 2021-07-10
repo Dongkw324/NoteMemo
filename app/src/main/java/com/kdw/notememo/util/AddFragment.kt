@@ -2,14 +2,18 @@ package com.kdw.notememo.util
 
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
@@ -50,17 +54,14 @@ class AddFragment: BaseFragment(), ItemClickListener {
         }
 
     private val getContent = registerForActivityResult(
-        ActivityResultContracts.GetContent()){
-        uri ->
-        if(uri != null){
-            binding.noteImage.setImageURI(uri)
-            binding.noteImage.visibility = View.VISIBLE
-            selectedImageUri = uri.toString()
-            Log.i("DEBUG", uri.toString())
-            Log.i("DEBUG", selectedImageUri!!)
-        } else {
-            Toast.makeText(requireContext(), "not image", Toast.LENGTH_SHORT).show()
-        }
+        ActivityResultContracts.StartActivityForResult()){
+            result: ActivityResult ->
+        var selectedUrl = result.data?.data
+        binding.noteImage.setImageURI(selectedUrl)
+        binding.noteImage.layoutParams.height=300
+        binding.noteImage.visibility = View.VISIBLE
+        selectedImageUri = getPathFromUri(selectedUrl!!)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -93,7 +94,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
         binding.imageInsert.setOnClickListener {
             if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_GRANTED){
+                PackageManager.PERMISSION_GRANTED){
                 startContent()
             } else {
                 resultLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -101,8 +102,25 @@ class AddFragment: BaseFragment(), ItemClickListener {
         }
     }
 
+    private fun getPathFromUri(contentUri: Uri): String?{
+        var filePath: String? = null
+        var cursor = requireActivity().contentResolver.query(contentUri, null, null, null, null)
+        if(cursor == null){
+            filePath = contentUri.path
+        } else {
+            cursor.moveToFirst()
+            var index = cursor.getColumnIndex("_data")
+            filePath = cursor.getString(index)
+            cursor.close()
+        }
+        return filePath
+    }
+
     private fun startContent(){
-        getContent.launch("image/*")
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        intent.type = "image/*"
+        getContent.launch(intent)
     }
 
     private fun saveMemo(){
@@ -128,7 +146,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
             context?.let {
                 MemoDatabase.getInstance(it).memoDao()
-                        .insertMemo(memo)
+                    .insertMemo(memo)
 
 
                 requireActivity().supportFragmentManager.popBackStack()
@@ -146,10 +164,10 @@ class AddFragment: BaseFragment(), ItemClickListener {
     companion object{
         @JvmStatic
         fun newInstance() =
-                AddFragment().apply{
-                    arguments = Bundle().apply {
-                    }
+            AddFragment().apply{
+                arguments = Bundle().apply {
                 }
+            }
     }
 
     private fun updateTime(){
