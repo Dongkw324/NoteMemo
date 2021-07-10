@@ -36,6 +36,8 @@ class MemoAdapter(private val arrayList: List<Memo>,
             holder.binding.noteImageView.setImageURI(Uri.parse(arrayList[position].imagePath))
             holder.binding.noteImageView.visibility = View.VISIBLE
             Log.i("DEBUG", arrayList[position].imagePath.toString())
+        } else {
+            holder.binding.noteImageView.visibility = View.GONE
         }
 
         holder.binding.root.setOnLongClickListener {

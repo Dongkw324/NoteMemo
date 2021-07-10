@@ -2,7 +2,6 @@ package com.kdw.notememo.util
 
 
 import android.Manifest
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
@@ -35,8 +34,8 @@ class AddFragment: BaseFragment(), ItemClickListener {
     val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.getDefault())
     var currentDate: String? = null
 
-    var selectedColor = "#000000"
-    var selectedImageUri = ""
+    private var selectedColor = "#000000"
+    private var selectedImageUri = ""
 
     private val resultLauncher =
         registerForActivityResult(
@@ -58,14 +57,16 @@ class AddFragment: BaseFragment(), ItemClickListener {
             binding.noteImage.visibility = View.VISIBLE
             selectedImageUri = uri.toString()
             Log.i("DEBUG", uri.toString())
-            Log.i("DEBUG", selectedImageUri.toString())
+            Log.i("DEBUG", selectedImageUri)
         } else {
             Toast.makeText(requireContext(), "not image", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddmemoBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
@@ -95,7 +96,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
                     PackageManager.PERMISSION_GRANTED){
                 startContent()
             } else {
-                Toast.makeText(requireContext(), "not permission", Toast.LENGTH_SHORT).show()
+                resultLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
     }
