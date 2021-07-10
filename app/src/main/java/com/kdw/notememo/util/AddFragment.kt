@@ -35,12 +35,12 @@ class AddFragment: BaseFragment(), ItemClickListener {
     var currentDate: String? = null
 
     private var selectedColor = "#000000"
-    private var selectedImageUri = ""
+    private var selectedImageUri: String? = null
 
     private val resultLauncher =
-        registerForActivityResult(
+        this.registerForActivityResult(
             ActivityResultContracts.RequestPermission()){
-            isGranted ->
+                isGranted ->
             if(isGranted){
                 Log.i("DEBUG", "permission granted")
             } else {
@@ -57,7 +57,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
             binding.noteImage.visibility = View.VISIBLE
             selectedImageUri = uri.toString()
             Log.i("DEBUG", uri.toString())
-            Log.i("DEBUG", selectedImageUri)
+            Log.i("DEBUG", selectedImageUri!!)
         } else {
             Toast.makeText(requireContext(), "not image", Toast.LENGTH_SHORT).show()
         }
@@ -129,6 +129,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
             context?.let {
                 MemoDatabase.getInstance(it).memoDao()
                         .insertMemo(memo)
+
 
                 requireActivity().supportFragmentManager.popBackStack()
             }

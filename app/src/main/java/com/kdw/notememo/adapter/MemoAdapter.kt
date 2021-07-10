@@ -33,6 +33,7 @@ class MemoAdapter(private val arrayList: List<Memo>,
         }
 
         if(arrayList[position].imagePath != null){
+            holder.binding.noteImageView.layoutParams.height=200
             holder.binding.noteImageView.setImageURI(Uri.parse(arrayList[position].imagePath))
             holder.binding.noteImageView.visibility = View.VISIBLE
             Log.i("DEBUG", arrayList[position].imagePath.toString())
