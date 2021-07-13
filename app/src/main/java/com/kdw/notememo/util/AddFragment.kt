@@ -108,7 +108,11 @@ class AddFragment: BaseFragment(), ItemClickListener {
         }
 
         binding.saveMemo.setOnClickListener {
-            saveMemo()
+            if(memoId != -1){
+                updateMemo()
+            } else {
+                saveMemo()
+            }
         }
 
         binding.colorLetter.setOnClickListener {
@@ -146,6 +150,22 @@ class AddFragment: BaseFragment(), ItemClickListener {
         intent.type = MediaStore.Images.Media.CONTENT_TYPE
         intent.type = "image/*"
         getContent.launch(intent)
+    }
+
+    private fun updateMemo(){
+        launch {
+            context?.let {
+                var memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
+                memo.title = binding.inputTitle.text.toString()
+                memo.content = binding.inputMemo.text.toString()
+                memo.memoTime = currentDate
+                memo.color = selectedColor
+                memo.imagePath = selectedImageUri
+
+                MemoDatabase.getInstance(it).memoDao().updateMemo(memo)
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        }
     }
 
     private fun saveMemo(){
