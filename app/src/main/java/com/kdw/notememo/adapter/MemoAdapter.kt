@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kdw.notememo.databinding.ItemMemoBinding
 import com.kdw.notememo.model.Memo
 import com.kdw.notememo.util.function.DeleteMemo
+import com.kdw.notememo.util.function.ItemUpdate
 
 class MemoAdapter(private val arrayList: List<Memo>,
-                  private val delete: DeleteMemo) :
+                  private val delete: DeleteMemo,
+                  private val update : ItemUpdate) :
     RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
 
 
@@ -44,6 +46,11 @@ class MemoAdapter(private val arrayList: List<Memo>,
         holder.binding.root.setOnLongClickListener {
             delete.deleteMemo(arrayList[position])
             true
+        }
+
+        holder.binding.root.setOnClickListener {
+            val memoId = arrayList[position].id
+            update.itemUpdateClick(memoId!!)
         }
     }
 

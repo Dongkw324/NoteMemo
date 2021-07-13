@@ -12,10 +12,11 @@ import com.kdw.notememo.databinding.FragmentMainBinding
 import com.kdw.notememo.model.Memo
 import com.kdw.notememo.model.MemoDatabase
 import com.kdw.notememo.util.function.DeleteMemo
+import com.kdw.notememo.util.function.ItemUpdate
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MainFragment : BaseFragment(), DeleteMemo {
+class MainFragment : BaseFragment(), DeleteMemo, ItemUpdate {
 
     private var _binding : FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -24,7 +25,7 @@ class MainFragment : BaseFragment(), DeleteMemo {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +51,7 @@ class MainFragment : BaseFragment(), DeleteMemo {
         launch {
             context?.let {
                 var memos = db.memoDao().displayMemo()
-                binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment)
+                binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment, this@MainFragment)
 
             }
         }
@@ -81,9 +82,19 @@ class MainFragment : BaseFragment(), DeleteMemo {
             context?.let{
                 MemoDatabase.getInstance(it).memoDao().deleteMemo(memo)
                 var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
-                binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment)
+                binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment, this@MainFragment)
 
             }
         }
+    }
+
+    override fun itemUpdateClick(memoId: Int) {
+        var fragment: Fragment
+        var bundle = Bundle()
+        bundle.putInt("memoId", memoId)
+        fragment = AddFragment.newInstance()
+        fragment.arguments = bundle
+
+        replaceFragment(fragment)
     }
 }

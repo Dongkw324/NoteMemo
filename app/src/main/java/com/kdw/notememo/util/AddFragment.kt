@@ -41,6 +41,8 @@ class AddFragment: BaseFragment(), ItemClickListener {
     private var selectedColor = "#000000"
     private var selectedImageUri: String? = null
 
+    private var memoId = -1
+
     private val resultLauncher =
         this.registerForActivityResult(
             ActivityResultContracts.RequestPermission()){
@@ -64,9 +66,13 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        memoId = requireArguments().getInt("memoId", -1)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddmemoBinding.inflate(inflater, container, false)
-
 
         return binding.root
     }
@@ -77,6 +83,15 @@ class AddFragment: BaseFragment(), ItemClickListener {
 
         state = "Active"
         updateTime()
+
+        if(memoId != -1){
+            launch {
+                context?.let {
+                    var memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
+                    binding.noteColor.setBackgroundColor(Color.parseColor(memo.color))
+                }
+            }
+        }
 
         binding.backButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
