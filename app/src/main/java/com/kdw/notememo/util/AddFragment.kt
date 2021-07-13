@@ -89,9 +89,14 @@ class AddFragment: BaseFragment(), ItemClickListener {
             launch {
                 context?.let {
                     var memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
-                    binding.noteColor.setBackgroundColor(Color.parseColor(memo.color))
                     binding.inputTitle.setText(memo.title)
                     binding.inputMemo.setText(memo.content)
+
+                    if(memo.color != null){
+                        binding.noteColor.setBackgroundColor(Color.parseColor(memo.color))
+                        selectedColor = memo.color!!
+                    }
+
                     if(memo.imagePath != null){
                         selectedImageUri = memo.imagePath!!
                         binding.noteImage.setImageBitmap(BitmapFactory.decodeFile(memo.imagePath))
