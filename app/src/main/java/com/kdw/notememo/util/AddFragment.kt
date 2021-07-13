@@ -4,6 +4,7 @@ package com.kdw.notememo.util
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -89,6 +90,15 @@ class AddFragment: BaseFragment(), ItemClickListener {
                 context?.let {
                     var memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
                     binding.noteColor.setBackgroundColor(Color.parseColor(memo.color))
+                    binding.inputTitle.setText(memo.title)
+                    binding.inputMemo.setText(memo.content)
+                    if(memo.imagePath != null){
+                        selectedImageUri = memo.imagePath!!
+                        binding.noteImage.setImageBitmap(BitmapFactory.decodeFile(memo.imagePath))
+                        binding.noteImage.visibility = View.VISIBLE
+                    } else {
+                        binding.noteImage.visibility = View.GONE
+                    }
                 }
             }
         }
