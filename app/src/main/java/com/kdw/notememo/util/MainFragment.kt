@@ -50,7 +50,7 @@ class MainFragment : BaseFragment(), DeleteMemo, ItemUpdate {
 
         launch {
             context?.let {
-                var memos = db.memoDao().displayMemo()
+                val memos = db.memoDao().displayMemo()
                 binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment, this@MainFragment)
 
             }
@@ -81,7 +81,7 @@ class MainFragment : BaseFragment(), DeleteMemo, ItemUpdate {
         launch {
             context?.let{
                 MemoDatabase.getInstance(it).memoDao().deleteMemo(memo)
-                var memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
+                val memos = MemoDatabase.getInstance(it).memoDao().displayMemo()
                 binding.memoRecycler.adapter = MemoAdapter(memos, this@MainFragment, this@MainFragment)
 
             }
@@ -89,8 +89,8 @@ class MainFragment : BaseFragment(), DeleteMemo, ItemUpdate {
     }
 
     override fun itemUpdateClick(memoId: Int) {
-        var fragment: Fragment
-        var bundle = Bundle()
+        val fragment: Fragment
+        val bundle = Bundle()
         bundle.putInt("memoId", memoId)
         fragment = AddFragment.newInstance()
         fragment.arguments = bundle

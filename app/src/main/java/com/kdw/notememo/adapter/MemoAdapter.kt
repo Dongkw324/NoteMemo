@@ -1,6 +1,5 @@
 package com.kdw.notememo.adapter
 
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.util.Log
@@ -13,12 +12,13 @@ import com.kdw.notememo.model.Memo
 import com.kdw.notememo.util.function.DeleteMemo
 import com.kdw.notememo.util.function.ItemUpdate
 
+
 class MemoAdapter(private val arrayList: List<Memo>,
                   private val delete: DeleteMemo,
                   private val update : ItemUpdate) :
     RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
 
-
+    private lateinit var list: List<String>
     class MemoViewHolder(val binding : ItemMemoBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoViewHolder {
@@ -34,14 +34,19 @@ class MemoAdapter(private val arrayList: List<Memo>,
             holder.binding.cardView.setCardBackgroundColor(Color.parseColor(arrayList[position].color))
         }
 
-        if(arrayList[position].imagePath != null){
+
+        if(!arrayList[position].imagePath.equals("")){
+            list = arrayList[position].imagePath!!.split('\n')
+
+
             holder.binding.noteImageView.layoutParams.height=200
-            holder.binding.noteImageView.setImageBitmap(BitmapFactory.decodeFile(arrayList[position].imagePath))
+            holder.binding.noteImageView.setImageURI(Uri.parse(list[0]))
             holder.binding.noteImageView.visibility = View.VISIBLE
-            Log.i("DEBUG", arrayList[position].imagePath.toString())
+            Log.i("DEBUG", list[0])
         } else {
             holder.binding.noteImageView.visibility = View.GONE
         }
+
 
         holder.binding.root.setOnLongClickListener {
             delete.deleteMemo(arrayList[position])

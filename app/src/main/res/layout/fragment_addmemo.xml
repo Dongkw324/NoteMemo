@@ -83,12 +83,12 @@
             android:layout_marginTop="5dp"
             android:background="@color/black" />
 
-        <ImageView
-            android:id="@+id/note_image"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/image_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:visibility="gone" />
+            android:layout_height="200dp"
+            android:background="@color/green"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

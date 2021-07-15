@@ -4,7 +4,6 @@ package com.kdw.notememo.util
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +16,10 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.kdw.notememo.adapter.ImageAdapter
 import com.kdw.notememo.databinding.FragmentAddmemoBinding
 import com.kdw.notememo.model.Memo
 import com.kdw.notememo.model.MemoDatabase
@@ -43,6 +45,8 @@ class AddFragment: BaseFragment(), ItemClickListener {
     private var selectedImageUri: String? = null
 
     private var memoId = -1
+    private lateinit var imageAdapter: ImageAdapter
+    private var imageList = mutableListOf<Uri>()
 
     private val resultLauncher =
         this.registerForActivityResult(
@@ -59,11 +63,14 @@ class AddFragment: BaseFragment(), ItemClickListener {
     private val getContent = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){
             result: ActivityResult ->
-        var selectedUrl = result.data?.data
-        binding.noteImage.setImageURI(selectedUrl)
-        binding.noteImage.layoutParams.height=300
-        binding.noteImage.visibility = View.VISIBLE
-        selectedImageUri = getPathFromUri(selectedUrl!!)
+        val selectedUrl: Uri = result.data?.data ?: return@registerForActivityResult
+
+        imageAdapter.addImage(selectedUrl)
+
+       // binding.noteImage.setImageURI(selectedUrl)
+       // binding.noteImage.layoutParams.height=300
+       // binding.noteImage.visibility = View.VISIBLE
+       // selectedImageUri = getPathFromUri(selectedUrl!!)
 
     }
 
@@ -85,18 +92,24 @@ class AddFragment: BaseFragment(), ItemClickListener {
         state = "Active"
         updateTime()
 
+        imageAdapter = ImageAdapter(requireContext(), imageList)
+        binding.imageRecyclerview.adapter = imageAdapter
+        binding.imageRecyclerview.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.imageRecyclerview.addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.HORIZONTAL))
+
         if(memoId != -1){
             launch {
                 context?.let {
-                    var memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
+                    val memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
                     binding.inputTitle.setText(memo.title)
                     binding.inputMemo.setText(memo.content)
-
+                    imageAdapter.setImages(makeUriList(memo.imagePath!!))
                     if(memo.color != null){
                         binding.noteColor.setBackgroundColor(Color.parseColor(memo.color))
                         selectedColor = memo.color!!
                     }
 
+                    /*
                     if(memo.imagePath != null){
                         selectedImageUri = memo.imagePath!!
                         binding.noteImage.setImageBitmap(BitmapFactory.decodeFile(memo.imagePath))
@@ -104,6 +117,8 @@ class AddFragment: BaseFragment(), ItemClickListener {
                     } else {
                         binding.noteImage.visibility = View.GONE
                     }
+
+                     */
                 }
             }
         }
@@ -136,6 +151,32 @@ class AddFragment: BaseFragment(), ItemClickListener {
         }
     }
 
+    private fun makeString(list: List<Uri>): String{
+        if(list.isEmpty()){
+            return ""
+        }
+        val sb = StringBuffer()
+
+        val sz = list.size
+        for(i in 0 until sz){
+            sb.append(list[i].toString())
+            if(i != sz-1){
+                sb.append('\n')
+            }
+        }
+
+        return sb.toString()
+    }
+
+    private fun makeUriList(str: String): List<Uri>{
+        if(str.equals("")){
+            return emptyList()
+        }
+
+        return str.split('\n').map{ Uri.parse(it) }.toList()
+    }
+
+    /*
     private fun getPathFromUri(contentUri: Uri): String?{
         var filePath: String? = null
         var cursor = requireActivity().contentResolver.query(contentUri, null, null, null, null)
@@ -150,6 +191,9 @@ class AddFragment: BaseFragment(), ItemClickListener {
         return filePath
     }
 
+
+     */
+
     private fun startContent(){
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = MediaStore.Images.Media.CONTENT_TYPE
@@ -158,9 +202,11 @@ class AddFragment: BaseFragment(), ItemClickListener {
     }
 
     private fun updateMemo(){
+        selectedImageUri = makeString(imageList)
+
         launch {
             context?.let {
-                var memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
+                val memo = MemoDatabase.getInstance(it).memoDao().getSpecificMemo(memoId)
                 memo.title = binding.inputTitle.text.toString()
                 memo.content = binding.inputMemo.text.toString()
                 memo.memoTime = currentDate
@@ -185,6 +231,9 @@ class AddFragment: BaseFragment(), ItemClickListener {
             Toast.makeText(context, "Write the memo content", Toast.LENGTH_SHORT).show()
             return
         }
+
+        selectedImageUri = makeString(imageList)
+        Log.i("DEBUG", selectedImageUri.toString())
 
         launch {
             val memo = Memo()
@@ -221,7 +270,7 @@ class AddFragment: BaseFragment(), ItemClickListener {
     }
 
     private fun updateTime(){
-        var loop : Boolean = true
+        var loop = true
 
         thread = Thread(object : Runnable {
             override fun run() {
