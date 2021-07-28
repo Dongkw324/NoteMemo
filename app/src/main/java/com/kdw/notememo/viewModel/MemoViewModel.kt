@@ -24,7 +24,7 @@ class MemoViewModel(application: Application) : AndroidViewModel(application){
     fun insert(memo: Memo) = viewModelScope.launch {
         repository.insert(memo)
     }
-    
+
     fun delete(memo: Memo) = viewModelScope.launch {
         repository.delete(memo)
     }
