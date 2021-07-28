@@ -7,5 +7,4 @@
     <item
         android:id="@+id/add_uri"
         android:title="@string/url_menu" />
-
 </menu>
