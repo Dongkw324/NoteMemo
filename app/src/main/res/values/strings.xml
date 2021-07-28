@@ -7,4 +7,10 @@
 
     <string name="camera_gallery_menu">카메라 및 갤러리에서 이미지 추가</string>
     <string name="url_menu">url에서 이미지 추가</string>
+
+    <string name="title">제목</string>
+    <string name="not_input_content">입력된 내용이 없습니다.</string>
+
+    <string name="added_image_view">addedImageView</string>
+    <string name="memo_image_view">memoImageView</string>
 </resources>
