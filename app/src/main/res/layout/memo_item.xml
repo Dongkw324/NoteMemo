@@ -14,6 +14,7 @@
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/memo_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/title"
@@ -24,6 +25,7 @@
             android:maxLines="1" />
 
         <TextView
+            android:id="@+id/memo_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

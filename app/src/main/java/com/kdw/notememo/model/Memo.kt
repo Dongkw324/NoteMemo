@@ -14,5 +14,5 @@ data class Memo(
     @ColumnInfo(name = "memoContent")
     var content: String,
     @ColumnInfo(name = "images")
-    var imagePath: String? = ""
+    var imagePath: String = ""
 ): Serializable

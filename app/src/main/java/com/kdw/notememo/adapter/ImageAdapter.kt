@@ -14,7 +14,7 @@ class ImageAdapter(val context: Context)
 
     var images = mutableListOf<Uri>()
 
-    inner class ViewHolder(val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(uri: Uri) {
             Glide.with(context).load(uri).error(R.drawable.img_error).into(binding.addedImageView)
         }
