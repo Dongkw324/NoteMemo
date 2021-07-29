@@ -11,5 +11,6 @@ class AddMemoActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+
     }
 }

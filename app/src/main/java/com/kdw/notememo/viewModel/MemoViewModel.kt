@@ -13,7 +13,7 @@ class MemoViewModel(application: Application) : AndroidViewModel(application){
 
     private val repository: MemoRepository
 
-    private val allMemos: LiveData<List<Memo>>
+    val allMemos: LiveData<List<Memo>>
 
     init {
         val memoDao = AppDatabase.getInstance(application)!!.memoDao()

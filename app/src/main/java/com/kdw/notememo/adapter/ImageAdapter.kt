@@ -35,4 +35,14 @@ class ImageAdapter(val context: Context)
     }
 
     override fun getItemCount() = images.size
+
+    internal fun setImages(images: List<Uri>) {
+        this.images.addAll(images)
+        notifyDataSetChanged()
+    }
+
+    internal fun addImage(uri : Uri) {
+        this.images.add(uri)
+        notifyDataSetChanged()
+    }
 }

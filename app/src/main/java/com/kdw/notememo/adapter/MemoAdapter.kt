@@ -33,8 +33,20 @@ class MemoAdapter(val context: Context) : RecyclerView.Adapter<MemoAdapter.ViewH
 
     override fun onBindViewHolder(holder: MemoAdapter.ViewHolder, position: Int) {
         holder.bind(memos[position])
+
+        holder.itemView.setOnClickListener {
+
+        }
+
+        holder.itemView.setOnLongClickListener {
+            true
+        }
     }
 
     override fun getItemCount() = memos.size
 
+    internal fun setMemoItem(memoItems: List<Memo>) {
+        this.memos = memoItems
+        notifyDataSetChanged()
+    }
 }
