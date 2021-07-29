@@ -26,7 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         permissionCheck()
 
-        memoAdapter = MemoAdapter(this)
+        memoAdapter = MemoAdapter(this, {memo ->
+            val intent = Intent(this, AddMemoActivity::class.java)
+        }, {
+
+        })
+
         binding.memoRecyclerView.adapter = memoAdapter
 
         val manager = LinearLayoutManager(this)

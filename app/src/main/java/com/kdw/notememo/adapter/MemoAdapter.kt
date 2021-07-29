@@ -4,13 +4,16 @@ import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kdw.notememo.R
 import com.kdw.notememo.databinding.MemoItemBinding
 import com.kdw.notememo.model.Memo
 
-class MemoAdapter(val context: Context) : RecyclerView.Adapter<MemoAdapter.ViewHolder>() {
+class MemoAdapter(val context: Context,
+                val memoItemClick: (Memo) -> Unit,
+                val memoItemLongClickListener: (Memo) -> Unit) : RecyclerView.Adapter<MemoAdapter.ViewHolder>() {
     var memos = emptyList<Memo>()
 
     inner class ViewHolder(private val binding: MemoItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -24,6 +27,15 @@ class MemoAdapter(val context: Context) : RecyclerView.Adapter<MemoAdapter.ViewH
             }
             else
                 binding.memoImage.setImageResource(R.drawable.insert_photo)
+
+            itemView.setOnClickListener {
+                memoItemClick(memo)
+            }
+
+            itemView.setOnLongClickListener {
+                memoItemLongClickListener(memo)
+                true
+            }
         }
     }
 
@@ -33,14 +45,6 @@ class MemoAdapter(val context: Context) : RecyclerView.Adapter<MemoAdapter.ViewH
 
     override fun onBindViewHolder(holder: MemoAdapter.ViewHolder, position: Int) {
         holder.bind(memos[position])
-
-        holder.itemView.setOnClickListener {
-
-        }
-
-        holder.itemView.setOnLongClickListener {
-            true
-        }
     }
 
     override fun getItemCount() = memos.size
