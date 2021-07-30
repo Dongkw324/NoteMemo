@@ -28,4 +28,5 @@ class MemoViewModel(application: Application) : AndroidViewModel(application){
     fun delete(memo: Memo) = viewModelScope.launch {
         repository.delete(memo)
     }
+
 }

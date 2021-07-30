@@ -20,7 +20,7 @@ import gun0912.tedbottompicker.TedBottomPicker
 class AddMemoActivity : AppCompatActivity() {
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var memoViewModel: MemoViewModel
-    private var id : Int? = null
+    private var memoId : Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,20 +39,24 @@ class AddMemoActivity : AppCompatActivity() {
                 val content = binding.inputContent.text.toString()
                 val images = imageAdapter.images
 
+                val memo = Memo(memoId, title, content, makeString(images))
+                memoViewModel.insert(memo)
+                finish()
+                /*
                 if(intent.hasExtra("memo")){
                     var memo = intent.getSerializableExtra("memo") as Memo
-
-                    val id = memo.id
-
-                    memo = Memo(id, title, content, makeString(images))
+                    memo = Memo(memoId, title, content, makeString(images))
                     memoViewModel.insert(memo)
                     finish()
                 }
                 else {
-                    val memo = Memo(0, title, content, makeString(images))
+                    val memo = Memo(memoId, title, content, makeString(images))
                     memoViewModel.insert(memo)
                     finish()
                 }
+
+                 */
+
             }
         }
     }
@@ -68,6 +72,7 @@ class AddMemoActivity : AppCompatActivity() {
 
         if(intent.hasExtra("memo")) {
             val memo = intent.getSerializableExtra("memo") as Memo
+            memoId = memo.id
             binding.inputTitle.setText(memo.title)
             binding.inputContent.setText(memo.content)
             imageAdapter.setImages(makeUri(memo.imagePath))
@@ -119,9 +124,13 @@ class AddMemoActivity : AppCompatActivity() {
     }
 
     private fun makeUri(str: String): List<Uri> {
-        if(str == "")
-            return emptyList()
+        return if(str == "")
+            emptyList()
         else
-            return str.split('\n').map { Uri.parse(it) }.toList()
+            str.split('\n').map { Uri.parse(it) }.toList()
+    }
+
+    companion object{
+        const val MEMO_ID = "memo_id"
     }
 }
