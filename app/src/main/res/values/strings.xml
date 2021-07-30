@@ -13,4 +13,6 @@
 
     <string name="added_image_view">addedImageView</string>
     <string name="memo_image_view">memoImageView</string>
+
+    <string name="enter_url">url을 입력하세요</string>
 </resources>
