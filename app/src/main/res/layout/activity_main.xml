@@ -24,6 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="20dp"
-        android:src="@drawable/add_button"/>
+        android:src="@drawable/add_button"
+        android:contentDescription="@string/add_memo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

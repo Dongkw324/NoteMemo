@@ -4,6 +4,7 @@ package com.kdw.notememo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.kdw.notememo.adapter.MemoAdapter
 import com.kdw.notememo.databinding.ActivityMainBinding
+import com.kdw.notememo.model.Memo
 import com.kdw.notememo.viewModel.MemoViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +30,11 @@ class MainActivity : AppCompatActivity() {
 
         memoAdapter = MemoAdapter(this, {memo ->
             val intent = Intent(this, AddMemoActivity::class.java)
+            intent.putExtra("memo", memo)
+            startActivity(intent)
         }, {
-
+            memo ->
+            deleteDialog(memo)
         })
 
         binding.memoRecyclerView.adapter = memoAdapter
@@ -71,5 +76,15 @@ class MainActivity : AppCompatActivity() {
                 .setPermissions(android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE,
                                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check()
+    }
+
+    private fun deleteDialog(memo: Memo) {
+        var builder = AlertDialog.Builder(this)
+        builder.setMessage("메모를 삭제하겠습니까?")
+                .setNegativeButton("아니요") {_, _ ->}
+                .setPositiveButton("예") {_, _ ->
+                    memoViewModel.delete(memo)
+                }
+        builder.show()
     }
 }

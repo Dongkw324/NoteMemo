@@ -15,4 +15,6 @@
     <string name="memo_image_view">memoImageView</string>
 
     <string name="enter_url">url을 입력하세요</string>
+
+    <string name="add_memo">메모 추가</string>
 </resources>
