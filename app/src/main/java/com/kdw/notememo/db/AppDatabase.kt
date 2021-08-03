@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.kdw.notememo.dao.MemoDao
 import com.kdw.notememo.model.Memo
 
-@Database(entities = [Memo::class], version = 1)
+@Database(entities = [Memo::class], version = 1, exportSchema = false)
 abstract class AppDatabase() : RoomDatabase() {
 
     abstract fun memoDao() : MemoDao

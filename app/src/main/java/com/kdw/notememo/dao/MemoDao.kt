@@ -6,7 +6,7 @@ import com.kdw.notememo.model.Memo
 
 @Dao
 interface MemoDao {
-    @Query("SELECT * FROM MemoEntity ORDER BY id")
+    @Query("SELECT * FROM MemoEntity ORDER BY id DESC")
     fun getAllMemo() : LiveData<List<Memo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

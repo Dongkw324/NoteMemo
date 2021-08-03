@@ -4,6 +4,7 @@ package com.kdw.notememo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var memoAdapter: MemoAdapter
     private lateinit var memoViewModel: MemoViewModel
+    private var pressedTime: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,5 +88,22 @@ class MainActivity : AppCompatActivity() {
                     memoViewModel.delete(memo)
                 }
         builder.show()
+    }
+
+    override fun onBackPressed() {
+        if(pressedTime == 0){
+            Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            pressedTime = System.currentTimeMillis().toInt()
+        } else {
+            val seconds = System.currentTimeMillis().toInt() - pressedTime
+
+            if(seconds > 2000) {
+                Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+                pressedTime = 0
+            } else{
+                super.onBackPressed()
+            }
+        }
+
     }
 }

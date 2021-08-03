@@ -7,7 +7,9 @@ import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -93,6 +95,19 @@ class AddMemoActivity : AppCompatActivity() {
             }
 
             R.id.add_url -> {
+                val builder = AlertDialog.Builder(this)
+                val dialogView = layoutInflater.inflate(R.layout.url_dialog, null)
+                val dialogText = dialogView.findViewById<EditText>(R.id.input_url)
+
+                builder.setView(dialogView)
+                        .setPositiveButton("추가") { positive, i ->
+                            val url = dialogText.text.toString()
+                            imageAdapter.addImage(Uri.parse(url))
+                        }
+                        .setNegativeButton("취소"){negative, i ->
+
+                        }
+                        .show()
                 true
             }
 
