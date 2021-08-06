@@ -23,10 +23,12 @@ class AddMemoActivity : AppCompatActivity() {
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var memoViewModel: MemoViewModel
     private var memoId : Int? = null
+    private var mBinding: ActivityAddMemoBinding? = null
+    private val binding get() = mBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityAddMemoBinding.inflate(layoutInflater)
+        mBinding = ActivityAddMemoBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
@@ -145,7 +147,8 @@ class AddMemoActivity : AppCompatActivity() {
             str.split('\n').map { Uri.parse(it) }.toList()
     }
 
-    companion object{
-        const val MEMO_ID = "memo_id"
+    override fun onDestroy() {
+        mBinding = null
+        super.onDestroy()
     }
 }
