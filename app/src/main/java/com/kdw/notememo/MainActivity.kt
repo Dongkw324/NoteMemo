@@ -21,10 +21,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var memoAdapter: MemoAdapter
     private lateinit var memoViewModel: MemoViewModel
     private var pressedTime: Int = 0
+    private var mBinding: ActivityMainBinding? = null
+    private val binding get() = mBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
@@ -81,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteDialog(memo: Memo) {
-        var builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
         builder.setMessage("메모를 삭제하겠습니까?")
                 .setNegativeButton("아니요") {_, _ ->}
                 .setPositiveButton("예") {_, _ ->
@@ -105,5 +107,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onDestroy() {
+        mBinding = null
+        super.onDestroy()
     }
 }
