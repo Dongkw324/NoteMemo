@@ -6,3 +6,4 @@
 ***
 
 ### 캡처 화면
+![메모장_초기화면](https://user-images.githubusercontent.com/59963677/128628334-e8493348-bd7f-422f-895d-309bbff153d5.png)
