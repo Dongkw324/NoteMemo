@@ -17,3 +17,7 @@
 * JetPack: Android Architecture Component(Room, ViewModel, LiveData 등등)
 * Glide: 이미지 로딩(https://github.com/bumptech/glide)
 * Tedpermission: 권한 허용 라이브러리(https://github.com/ParkSangGwon/TedPermission)
+
+***
+### 나중에 개선할 수 있는 점
+* 이미지 클릭시 최대 크기로 확대할 수 있게 하는 기능 추가
