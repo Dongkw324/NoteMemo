@@ -6,6 +6,7 @@
 ***
 ### 개략적인 앱의 구조 (MVVM 패턴 적용)
 <img src="https://user-images.githubusercontent.com/59963677/129193309-efadc7f1-a852-4d83-aab0-f8ffa05602e4.png" width=600 height=700/>
+
 ***
 
 ### 캡처 화면
