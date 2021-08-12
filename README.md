@@ -4,6 +4,9 @@
 * 카메라, 갤러리, 외부 URL 이미지를 첨부할 수 있음
 
 ***
+### 개략적인 앱의 구조 (MVVM 패턴 적용)
+
+***
 
 ### 캡처 화면
 <img src="https://user-images.githubusercontent.com/59963677/128628831-e529a4d3-4fe4-403e-b1a1-785b00768969.png" width=30% height=60%/> <img src="https://user-images.githubusercontent.com/59963677/128628458-fe4bd13e-98c0-48fb-ad7a-ce9af815aa5f.png" width=30% height=60%/> 
